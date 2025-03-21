@@ -1,0 +1,213 @@
+/* Heading Section */
+.Heading {
+    text-align: center;
+    padding: 1rem;
+    background-color: #185EAF;
+    color: white;
+    font-size: 1.5rem;
+    /* font-weight: bold; */
+    margin-bottom: 1rem;
+}
+
+/* Main Form Container */
+.expenses-content {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 1.5rem;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    max-height: 78vh; /* Fixed height relative to viewport */
+    overflow-y: auto; /* Enables scrolling when content overflows */
+}
+
+
+/* Input Fields */
+.input-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    gap: 10px;
+}
+
+label {
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+    width: 90%;
+    text-align: left;
+}
+
+/* Text and Number Inputs */
+input[type="text"],
+input[type="number"] {
+    width: 90%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 14px;
+    background-color: #f9f9f9;
+    transition: border-color 0.3s ease-in-out;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus {
+    border-color: #2D336B;
+    outline: none;
+}
+
+/* Distance Input with Km */
+.Actions-distance {
+    display: flex;
+    align-items: center;
+    width: 90%;
+}
+
+.Actions-distance input {
+    flex: 1;
+}
+
+.Actions-distance span {
+    margin-left: 10px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/* Toggle Switch Section */
+.toggle-container {
+    display: flex;
+    flex-direction: column; /* Stack elements vertically */
+    width: 90%;
+    margin-top: 10px;
+    
+}
+
+.toggle-label {
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+    padding:0.5rem;
+}
+
+/* Toggle Switch Box (Now on a new line) */
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 25px;
+    margin-top: 5px;
+}
+
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    border-radius: 25px;
+    transition: 0.4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    border-radius: 50%;
+    transition: 0.4s;
+}
+
+/* Active (Checked) State */
+input:checked + .slider {
+    background-color: #2D336B;
+}
+
+input:checked + .slider:before {
+    transform: translateX(25px);
+    background-color: #4a90e2;
+}
+
+/* Restaurant Label on a New Line */
+.restaurant-container {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    margin-top: 10px;
+}
+
+.restaurant-container label {
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+/* Calendar (Date Picker) Styling */
+input[type="date"] {
+    width: 90%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 14px;
+    background-color: #f9f9f9;
+    transition: border-color 0.3s ease-in-out;
+}
+
+input[type="date"]:focus {
+    border-color: #2D336B;
+    outline: none;
+}
+
+/* Total Amount */
+.total-amount {
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 10px;
+}
+
+/* Submit Button */
+.Submit-main {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+.Submit {
+    width: 100%;
+    max-width: 300px;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    border: none;
+    border-radius: 25px;
+    background-color: #185EAF;
+    color: white;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+}
+
+.Submit:hover {
+    background-color: #1f2a5b;
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+    .expenses-content {
+        width: 90%;
+    }
+}
