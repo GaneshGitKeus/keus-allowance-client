@@ -5,8 +5,13 @@ const config: CapacitorConfig = {
   appName: 'Keus Allowance',
   webDir: 'build',
   server: {
-    androidScheme: 'https',
-    allowNavigation: ['https://keus-allowance-app.onrender.com']
+    androidScheme: 'http',
+    allowNavigation: ['http://keus-allowance-app.onrender.com'],
+  },
+  plugins: {
+    CapacitorHttp: {
+      enabled: true
+    }
   }
 };
 
