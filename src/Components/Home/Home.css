@@ -142,22 +142,7 @@ a
     background-color: rgb(18, 18, 149);
 }
 
-.Signin-Buttton{
-    padding: 1rem 2rem; /* Adjust padding for proper size */
-    font-size: 1.5rem; 
-    border-radius: 25px;
-    border: none;
-    cursor: pointer;
-    transition: 0.3s ease-in-out;
-    min-width: 10rem;
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    background-color: rgb(18, 18, 149);
-    
-}
+
 
 
 .otp-container input {

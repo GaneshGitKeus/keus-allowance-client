@@ -1,8 +1,47 @@
-.Keus-Logo
-{
+.Keus-Logo {
     display: flex;
     justify-content: center;
-    padding-top:3rem;
-    padding-left:1.5rem;
-    
+    padding-top: 3rem;
+    padding-left: 1.5rem;
+
+}
+
+
+/* Reset default margin and padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Set html and body to fill the viewport */
+html,
+body {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    /* Prevents scrolling */
+}
+
+/* Main container */
+#root {
+    height: 100%;
+    width: 100%;
+}
+
+/* App container */
+.app-container {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* For route components */
+.page-container {
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+    /* Allow scrolling within components if needed */
 }

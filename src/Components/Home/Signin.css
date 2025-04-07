@@ -1,0 +1,23 @@
+/* Signin.css - Minimal changes to fix input fields */
+
+/* Custom styling for input fields */
+.custom-input {
+    height: 45px;
+    padding: 10px 15px;
+    font-size: 16px;
+    width: 100%;
+    margin-bottom: 15px;
+  }
+  
+  /* Form container additional styles */
+  .Form {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  /* Login button styling */
+  .btn-primary {
+    height: 45px;
+    font-size: 16px;
+  }

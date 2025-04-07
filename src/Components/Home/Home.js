@@ -67,7 +67,6 @@ function Home() {
             if (!response.ok) throw new Error(data.error);
             console.log("Login: ", data.user);
             localStorage.setItem("user", JSON.stringify(data.user));
-            alert("Login successful!");
             navigate("/main"); // Redirect after login
         } catch (err) {
             setError("❌ Failed to Login");
@@ -75,7 +74,7 @@ function Home() {
     };
 
     return (
-        <div className="Home">
+        <div className="Home" >
             {error && (
                 <div className="error-message" onClick={() => setError("")}>{error}</div>
             )}
@@ -88,7 +87,7 @@ function Home() {
             </div>
 
             <div className="Login-Button">
-                <button
+                {/* <button
                     className="Login-Buttton-size"
                     onClick={() => setActive(0)}
                     style={{
@@ -97,7 +96,7 @@ function Home() {
                     }}
                 >
                     Login
-                </button>
+                </button> */}
                 {/* <button
                     className="Signup-Buttton-size"
                     onClick={() => setActive(1)}

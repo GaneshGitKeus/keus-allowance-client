@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@capacitor/android": "^7.1.0",
+    "@capacitor/app": "^7.0.1",
     "@capacitor/cli": "^7.1.0",
     "@capacitor/core": "^7.1.0",
     "axios": "^1.7.9",

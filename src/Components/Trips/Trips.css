@@ -301,10 +301,7 @@ body {
 }
 
 .activities{
-    /* display: flex; */
-    /* flex-direction: column; */
-    /* align-items: center; */
-    max-height: 63vh; /* Fixed height relative to viewport */
+    max-height: 73vh; 
     overflow-y: auto; /* Enables scrolling when content overflows */
 }
 

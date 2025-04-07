@@ -1,13 +1,21 @@
 import { useState, useRef } from "react";
+import "./Signin.css"; // Add this CSS file
 
 function Signin({ handleLogin }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const otpRefs = useRef([]);
 
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
-    handleLogin({ email, password });
+    setIsLoading(true);
+
+    try {
+      await handleLogin({ email, password });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const moveNext = (index, e) => {
@@ -19,11 +27,14 @@ function Signin({ handleLogin }) {
     }
   };
 
+  const isFormValid = email.trim() !== "" && password.trim() !== "";
+
   return (
     <div className="Form">
       <form className="Form-1" onSubmit={submitHandler}>
         <input
           type="email"
+          className="form-control custom-input mb-3"
           placeholder="Email Address"
           required
           value={email}
@@ -31,6 +42,7 @@ function Signin({ handleLogin }) {
         />
         <input
           type="password"
+          className="form-control custom-input mb-3"
           placeholder="Password"
           required
           value={password}
@@ -53,8 +65,21 @@ function Signin({ handleLogin }) {
             ))}
           </div>
         </div> */}
-     
-        <button type="submit" className="Signin-Buttton">Login</button>
+
+        <button
+          type="submit"
+          className="btn btn-primary w-100"
+          disabled={!isFormValid || isLoading}
+        >
+          {isLoading ? (
+            <>
+              <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+              Logging in...
+            </>
+          ) : (
+            'Login'
+          )}
+        </button>
       </form>
     </div>
   );
