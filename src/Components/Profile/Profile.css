@@ -106,8 +106,6 @@
 
 .profile-actions {
     display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 1rem;
@@ -115,10 +113,10 @@
 }
 
 .profile-actions button {
-    width: 10rem;
-    padding: 1rem;
-    font-size: 1.2rem;
-    border-radius: 25px;
+    width: 5rem;
+    
+    padding: 10px;
+    border-radius: 16px;
     background-color: #185EAF;
     color: white;
     text-align: center;
@@ -130,35 +128,4 @@
 .profile-actions button:hover {
     background-color: #185EAF;
     transform: scale(1.05);
-}
-
-/* Adjust layout if there are three buttons */
-.profile-actions:has(button:nth-child(3)) {
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
-.profile-actions:has(button:nth-child(3)) button:first-child {
-    width: 10rem;
-    text-align: center;
-}
-
-/* Responsive adjustments */
-@media (max-width: 480px) {
-    .profile-container {
-        width: 90%;
-        height: auto;
-        justify-content: center;
-    }
-
-    .profile-actions {
-        flex-direction: column;
-        gap: 0.5rem;
-    }
-
-    .profile-actions button {
-        width: 8rem;
-        font-size: 1rem;
-    }
 }

@@ -31,7 +31,7 @@ function Expenses(props) {
                         <span>{props.clientName} </span>
                         <span>{props.leadId}</span>
                         <span> <span className="Issue">{props.to ? "Destination:" : "Restaurant:"}</span> {props.from} {props.to && <span>to</span>} {props.to}</span>
-                        <span><span className="Issue">Issue: </span>{props.issue}</span>
+                        <span><span className="Issue">POV: </span>{props.issue}</span>
                     </div>
                     <div className="Kms-Amount">
                         <span>{props.kmorperson}</span>
@@ -42,7 +42,7 @@ function Expenses(props) {
 
             {/* Full-Screen Bottom Sheet Modal */}
             {showBottomSheet && (
-                <div className="bottom-sheet-overlay">
+                <div className="bottom-sheet-overlay" onClick={() => setShowBottomSheet(false)}>
                     <div className="bottom-sheet">
                         <button onClick={() => { props.handleEditExpense(props.expense); setShowBottomSheet(false); }}>Edit Expense</button>
                         <button onClick={() => { props.handleDeleteExpense(props.expense); setShowBottomSheet(false); }}>Delete Expense</button>

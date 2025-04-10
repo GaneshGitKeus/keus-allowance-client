@@ -2,9 +2,11 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useEffect, useState } from "react";
 import Activity from "./Activity";
 import "./Trips.css";
-import Empty from "./empty.png";
+import Empty from "./no.png";
 import ExcelJS from "exceljs";
 import { saveAs } from "file-saver";
+import { Filesystem, Directory } from '@capacitor/filesystem';
+
 
 function Trips({ user, expenses, handleEditExpense, handleDeleteExpense }) {
     const getCurrentMonthFirstDate = () => {
@@ -20,7 +22,7 @@ function Trips({ user, expenses, handleEditExpense, handleDeleteExpense }) {
     const [totalDistance, setTotalDistance] = useState(0);
     const [todayExpenses, setTodayExpenses] = useState(0);
     const [todayDistance, setTodayDistance] = useState(0);
-    
+
 
     useEffect(() => {
         const filtered = expenses.filter(expense => new Date(expense.date).toISOString().split("T")[0] >= date);
@@ -187,11 +189,45 @@ function Trips({ user, expenses, handleEditExpense, handleDeleteExpense }) {
             sheet.getColumn(11).alignment = { wrapText: true };
         });
 
+
+
         // Create and download Excel file
         const buffer = await workbook.xlsx.writeBuffer();
-        const blob = new Blob([buffer], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
-        saveAs(blob, `Expenses_${user.name}.xlsx`);
+        // const blob = new Blob([buffer], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
+        // saveAs(blob, `Expenses_${user.name}.xlsx`);
+        // Create a URL for the blob
+        try {
+            // Convert buffer to base64 string
+            const base64Data = arrayBufferToBase64(buffer);
+            
+            // Save file using Capacitor Filesystem API
+            const fileName = `Expenses_${user.name}.xlsx`;
+            const savedFile = await Filesystem.writeFile({
+                path: fileName,
+                data: base64Data,
+                directory: Directory.Documents,
+                recursive: true
+            });
+            
+            // Alert the user that the file has been saved
+            alert(`Report saved to: ${savedFile.uri}`);
+            
+            // Optionally open the file
+            // This requires installing @capacitor/document-viewer plugin
+        } catch (error) {
+            console.error('Error saving file:', error);
+            alert('Failed to save the report. Please try again.');
+        }
     };
+    function arrayBufferToBase64(buffer) {
+        let binary = '';
+        const bytes = new Uint8Array(buffer);
+        const len = bytes.byteLength;
+        for (let i = 0; i < len; i++) {
+            binary += String.fromCharCode(bytes[i]);
+        }
+        return window.btoa(binary);
+    }
 
 
     return (
@@ -200,12 +236,12 @@ function Trips({ user, expenses, handleEditExpense, handleDeleteExpense }) {
                 <div className="Totalcount">
                     <div>
                         <div>
-                            <span className="">Total Distance: </span>
+                            <span className="">Total Distance : </span>
                             <span className="Amount">{totalDistance}</span>
                             <span>km</span>
                         </div>
                         <div>
-                            <span className="">Total Expense:</span>
+                            <span className="">Total Expense : </span>
                             <span className="Amount">{totalExpenses}</span>
                             <span><i className="bi bi-currency-rupee"></i></span>
                         </div>
@@ -243,11 +279,11 @@ function Trips({ user, expenses, handleEditExpense, handleDeleteExpense }) {
             </div> */}
 
             <div className="search-container">
-            <div className="date-selector">
+                <div className="date-selector">
                     <input type="date" value={date} onChange={(e) => setDate(e.target.value)} required />
                 </div>
                 <div className="Search-client">
-                    <input type="text" placeholder="Search by Lead ID or Client Name" value={query} onChange={(e) => setQuery(e.target.value)} />
+                    <input type="text" placeholder="Lead ID or Name" value={query} onChange={(e) => setQuery(e.target.value)} />
                 </div>
             </div>
 
@@ -267,6 +303,7 @@ function Trips({ user, expenses, handleEditExpense, handleDeleteExpense }) {
                 ) : (
                     <div className="empty-expenses">
                         <img src={Empty} alt="No expenses added" />
+                        <p style={{textAlign:"center",}}>No items found</p>
                     </div>
                 )}
             </div>

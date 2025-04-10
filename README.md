@@ -82,3 +82,6 @@ build :
 
 sync : 
 ➜ ./node_modules/.bin/cap sync android
+
+open : 
+➜ ./node_modules/.bin/cap open android
