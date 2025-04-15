@@ -4,7 +4,8 @@ import Signin from "./Signin";
 import Signup from "./Signup";
 import Keuslogo from "../Keuslogo";
 import "./Home.css";
-
+import { baseurl } from "../../constants";
+import { userData } from "../../api";
 function Home() {
     const [active, setActive] = useState(0);
     const [error, setError] = useState("");
@@ -15,12 +16,12 @@ function Home() {
         // Check if user is already logged in by fetching user data
         const checkAuth = async () => {
             try {
-                const response = await fetch("https://keus-allowance-app.onrender.com/api/user", {
-                    method: "GET",
-                    credentials: "include", // Send cookies
-                });
-                if (response.ok) {
-                    const data = await response.json();
+
+
+                const data = await userData(); // Fetch user data
+
+                if (data) {
+
                     localStorage.setItem("user", JSON.stringify(data));
                     navigate("/main"); // Redirect if authenticated
                 }
@@ -36,7 +37,7 @@ function Home() {
         setError("");
         setSuccess("");
         try {
-            const response = await fetch("https://keus-allowance-app.onrender.com/api/register", {
+            const response = await fetch(`${baseurl}/api/register`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -55,7 +56,7 @@ function Home() {
     const handleLogin = async (credentials) => {
         setError("");
         try {
-            const response = await fetch("https://keus-allowance-app.onrender.com/api/login", {
+            const response = await fetch(`${baseurl}/api/login`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

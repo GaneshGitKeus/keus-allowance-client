@@ -4,6 +4,8 @@ import "./Profile.css";
 import { Mail, Phone } from "lucide-react";
 import ProfileImage from "./Profileimage.jpg";
 import Keusimage from "./Keusname.png";
+import { baseurl } from "../../constants";
+import { updateUserData, userLogout } from "../../api";
 
 function Profile({setChanged}) {
     const navigate = useNavigate();
@@ -30,20 +32,7 @@ function Profile({setChanged}) {
 
     const handleSave = async () => {
         try {
-            const response = await fetch("https://keus-allowance-app.onrender.com/api/user/update", {
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                credentials: "include", // Ensures cookies are sent
-                body: JSON.stringify(userData),
-            });
-
-            if (!response.ok) {
-                throw new Error("Failed to update user data");
-            }
-
-            const data = await response.json();
+            const data = await updateUserData(userData);
             localStorage.setItem("user", JSON.stringify(data.user));
             setUserData(data.user);
             setIsEditing(false);
@@ -69,11 +58,7 @@ function Profile({setChanged}) {
 
     const handleLogout = async () => {
         try {
-            await fetch("https://keus-allowance-app.onrender.com/api/logout", {
-                method: "POST",
-                credentials: "include", // To ensure cookies are sent
-            });
-    
+            await userLogout(); // Call the logout API
             // Clear authentication data
             localStorage.removeItem("user");
             navigate("/"); // Redirect to login page

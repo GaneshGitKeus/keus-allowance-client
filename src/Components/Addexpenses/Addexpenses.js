@@ -1,5 +1,6 @@
 import "./Addexpenses.css";
 import { useState, useEffect } from "react";
+import {baseurl} from "../../constants"
 
 function Addexpenses({ user, setChanged, selectedExpense, setPage, setSelectedExpense }) {
     const [clientName, setClientName] = useState("");
@@ -32,7 +33,7 @@ function Addexpenses({ user, setChanged, selectedExpense, setPage, setSelectedEx
 
     const getExpenseDetailUsingUserIdandExpenseId = async (expenseId) => {
         try {
-            const response = await fetch(`https://keus-allowance-app.onrender.com/api/expense/${user._id}/${expenseId}`);
+            const response = await fetch(`${baseurl}/api/expense/${user._id}/${expenseId}`);
             const data = await response.json();
             return data;
         } catch (error) {
@@ -90,8 +91,8 @@ function Addexpenses({ user, setChanged, selectedExpense, setPage, setSelectedEx
         };
 
         const url = selectedExpense
-            ? `https://keus-allowance-app.onrender.com/api/expense/${selectedExpense._id}`
-            : "https://keus-allowance-app.onrender.com/api/expense";
+            ? `${baseurl}/api/expense/${selectedExpense._id}`
+            : `${baseurl}/api/expense`;
 
         const method = selectedExpense ? "PUT" : "POST";
 

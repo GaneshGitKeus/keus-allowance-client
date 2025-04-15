@@ -1,9 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, use } from "react";
 import Trips from "../Trips/Trips";
 import Addexpenses from "../Addexpenses/Addexpenses";
 import Profile from "../Profile/Profile";
 import "./Main.css";
 import { useNavigate } from "react-router-dom";
+import {baseurl} from "../../constants"
+import { userData } from "../../api";
 
 function Main() {
     const navigate = useNavigate();
@@ -23,12 +25,7 @@ function Main() {
     useEffect(() => {
         const fetchUserData = async () => {
             try {
-                const response = await fetch("https://keus-allowance-app.onrender.com/api/user", {
-                    method: "GET",
-                    credentials: "include", // Ensure cookies are sent
-                });
-                const data = await response.json();
-                if (!response.ok) throw new Error(data.error);
+                const data = await userData(); // Assuming userData is a function that fetches user data
                 setUser(data);
                 setExpenses(data.expenses);
                 console.log("User Data:", data);
@@ -40,38 +37,16 @@ function Main() {
         fetchUserData();
     }, [changed]);
 
-    useEffect(() => {
-        const checkAuth = async () => {
-            try {
-                const response = await fetch("https://keus-allowance-app.onrender.com/api/user", {
-                    method: "GET",
-                    credentials: "include", // Ensure cookies are sent
-                });
-
-                if (!response.ok) {
-                    localStorage.removeItem("user"); // Clear user data
-                    navigate("/"); // Redirect to login page
-                }
-            } catch (error) {
-                console.error("Error checking authentication:", error);
-                localStorage.removeItem("user");
-                navigate("/");
-            }
-        };
-
-        // checkAuth();
-    }, [navigate]);
-
-    const handleDeleteExpense = async (expense) => {
+      const handleDeleteExpense = async (expense) => {
         if (!window.confirm("Are you sure you want to delete this expense?")) return;
 
-        let url = `https://keus-allowance-app.onrender.com/api/expense/${expense._id}`;
+        let url = `${baseurl}/api/expense/${expense._id}`;
         let method = "DELETE";
         let body = null;
 
         // If it's a Food expense, update instead of delete
         if (!expense.distance && expense.restaurant) {
-            url = `https://keus-allowance-app.onrender.com/api/expense/food/${expense._id}`;
+            url = `${baseurl}/api/expense/food/${expense._id}`;
             method = "PUT";
             body = JSON.stringify({
                 clientName: expense.clientName,
