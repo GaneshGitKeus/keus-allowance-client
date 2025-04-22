@@ -13,6 +13,17 @@ function Expenses(props) {
         clearTimeout(pressTimer);
     };
 
+    // Determine what label to show before the location/purpose
+    const getLocationLabel = () => {
+        if (props.event === "Others") {
+            return "Others:";
+        } else if (props.to) {
+            return "Destination:";
+        } else {
+            return "Restaurant:";
+        }
+    };
+
     return (
         <>
             <div 
@@ -30,7 +41,7 @@ function Expenses(props) {
                     <div className="Trip-Details">
                         <span>{props.clientName} </span>
                         <span>{props.leadId}</span>
-                        <span> <span className="Issue">{props.to ? "Destination:" : "Restaurant:"}</span> {props.from} {props.to && <span>to</span>} {props.to}</span>
+                        <span> <span className="Issue">{getLocationLabel()}</span> {props.from} {props.to && <span>to</span>} {props.to}</span>
                         <span><span className="Issue">POV: </span>{props.issue}</span>
                     </div>
                     <div className="Kms-Amount">

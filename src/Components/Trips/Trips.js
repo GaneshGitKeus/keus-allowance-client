@@ -65,6 +65,19 @@ function Trips({ user, expenses, handleEditExpense, handleDeleteExpense }) {
                 });
             }
 
+            if(expense.otherPurpose) {
+                acc[expenseDate].push({
+                    _id: expense._id,
+                    clientName: expense.clientName,
+                    leadId: expense.leadId,
+                    purpose: expense.purpose,
+                    from: expense.from,
+                    to: expense.to,
+                    otherPurpose: expense.otherPurpose,
+                    otherAmount: expense.otherAmount
+                });
+            }
+
             return acc;
         }, {});
 
@@ -82,7 +95,7 @@ function Trips({ user, expenses, handleEditExpense, handleDeleteExpense }) {
         filteredExpenses.forEach(expense => {
             const expenseDate = new Date(expense.date).toISOString().split("T")[0];
 
-            let expenseAmount = (expense.restaurant ? expense.amount : 0) + (expense.distance * 4);
+            let expenseAmount = (expense.restaurant ? expense.amount : 0) + (expense.distance * 4) + (expense.otherAmount || 0);
             totalDist += expense.distance;
             totalExp += expenseAmount;
 
@@ -130,11 +143,12 @@ function Trips({ user, expenses, handleEditExpense, handleDeleteExpense }) {
             sheet.addRow([]); // Empty row
 
             // Column Headers
-            const columnHeaderRow = sheet.addRow(["Date", "Client Name", "Lead ID", "Purpose", "From", "To", "Vehicle", "Distance (Km)", "Amount (Rs)", "Food (Rs)", "Team Members"]);
+            const columnHeaderRow = sheet.addRow(["Date", "Client Name", "Lead ID", "Purpose", "From", "To", "Vehicle", "Distance (Km)", "Amount (Rs)", "Food (Rs)", "Team Members", "otherPurpose", "otherAmount (Rs)"]);
             columnHeaderRow.font = { bold: true }; // Make column headers bold
 
             let totalAmount = 0;
             let totalFood = 0;
+            let totalOtherAmount = 0;
 
             // Add Expense Data
             expenses.forEach(expense => {
@@ -142,6 +156,7 @@ function Trips({ user, expenses, handleEditExpense, handleDeleteExpense }) {
                 const amount = (expense.distance * 4);
                 totalAmount += amount;
                 totalFood += expense.amount || 0;
+                totalOtherAmount += expense.otherAmount || 0;
 
                 sheet.addRow([
                     formattedDate, // Formatted Date (e.g., "10-Jan-2025")
@@ -154,15 +169,17 @@ function Trips({ user, expenses, handleEditExpense, handleDeleteExpense }) {
                     expense.distance,
                     amount,
                     expense.amount || 0,
-                    expense.team
+                    expense.team,
+                    expense.otherPurpose,
+                    expense.otherAmount
                 ]);
             });
 
-            const finalTotalAmount = totalAmount + totalFood;
+            const finalTotalAmount = totalAmount + totalFood + totalOtherAmount;
 
             // Add Total Row
             sheet.addRow([]);
-            const totalRow = sheet.addRow(["Total", "", "", "", "", "", "", "", totalAmount, totalFood]);
+            const totalRow = sheet.addRow(["Total", "", "", "", "", "", "", "", totalAmount, totalFood, "", totalOtherAmount]);
             totalRow.font = { bold: true }; // Make total row bold
 
             // Final Total Row

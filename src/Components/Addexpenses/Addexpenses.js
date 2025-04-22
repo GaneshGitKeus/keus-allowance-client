@@ -14,6 +14,9 @@ function Addexpenses({ user, setChanged, selectedExpense, setPage, setSelectedEx
     const [persons, setPersons] = useState(0);
     const [date, setDate] = useState("");
     const [showExtraFields, setShowExtraFields] = useState(false);
+    const [showOtherExpenses, setShowOtherExpenses] = useState(false);
+    const [otherPurpose, setOtherPurpose] = useState("");
+    const [otherAmount, setOtherAmount] = useState("");
     const [totalAmount, setTotalAmount] = useState(0);
     const [message, setMessage] = useState("");
     const [team, setTeam] = useState("");
@@ -24,8 +27,9 @@ function Addexpenses({ user, setChanged, selectedExpense, setPage, setSelectedEx
     useEffect(() => {
         const dist = distance ? parseFloat(distance) : 0;
         const amt = showExtraFields && amount ? parseFloat(amount) : 0;
-        setTotalAmount(dist * 4 + amt);
-    }, [distance, amount, showExtraFields]);
+        const otherAmt = showOtherExpenses && otherAmount ? parseFloat(otherAmount) : 0;
+        setTotalAmount(dist * 4 + amt + otherAmt);
+    }, [distance, amount, otherAmount, showExtraFields, showOtherExpenses]);
 
     useEffect(() => {
         clearData();
@@ -59,6 +63,9 @@ function Addexpenses({ user, setChanged, selectedExpense, setPage, setSelectedEx
                     setTeam(data.team || "");
                     setDate(data.date ? data.date.split("T")[0] : "");
                     setShowExtraFields(!!data.restaurant);
+                    setOtherPurpose(data.otherPurpose || "");
+                    setOtherAmount(data.otherAmount || "");
+                    setShowOtherExpenses(!!data.otherPurpose);
                 }
             });
         }
@@ -76,6 +83,9 @@ function Addexpenses({ user, setChanged, selectedExpense, setPage, setSelectedEx
         setPersons(0);
         setDate("");
         setShowExtraFields(false);
+        setShowOtherExpenses(false);
+        setOtherPurpose("");
+        setOtherAmount("");
         setTotalAmount(0);
         setMessage("");
     }
@@ -86,8 +96,21 @@ function Addexpenses({ user, setChanged, selectedExpense, setPage, setSelectedEx
         setIsLoading(true);
 
         const payload = {
-            clientName, leadId: leadID, purpose, from, to, distance: parseFloat(distance) || 0,
-            restaurant, amount: parseFloat(amount) || 0, persons: parseInt(persons) || 0, date, team
+            clientName, 
+            leadId: leadID, 
+            purpose, 
+            from, 
+            to, 
+            distance: parseFloat(distance) || 0,
+            // Keep restaurant, amount, persons and team values regardless of toggle state
+            restaurant: restaurant, 
+            amount: parseFloat(amount) || 0, 
+            persons: parseInt(persons) || 0, 
+            team: team,
+            date, 
+            // Keep otherPurpose and otherAmount values regardless of toggle state
+            otherPurpose: otherPurpose,
+            otherAmount: parseFloat(otherAmount) || 0
         };
 
         const url = selectedExpense
@@ -326,6 +349,52 @@ function Addexpenses({ user, setChanged, selectedExpense, setPage, setSelectedEx
                                         onChange={(e) => setTeam(e.target.value)}
                                         placeholder="Team name"
                                     />
+                                </div>
+                            </div>
+                        </div>
+                    )}
+                    
+                    {/* Add Other Expenses toggle section */}
+                    <div className="form-group toggle-group">
+                        <label className="toggle-label">Add Other Expenses</label>
+                        <label className="toggle-switch">
+                            <input
+                                type="checkbox"
+                                checked={showOtherExpenses}
+                                onChange={() => setShowOtherExpenses(!showOtherExpenses)}
+                            />
+                            <span className="slider"></span>
+                        </label>
+                    </div>
+
+                    {showOtherExpenses && (
+                        <div className="extra-fields">
+                            <div className="form-group">
+                                <label>Purpose</label>
+                                <div className="input-with-icon">
+                                    <i className="fas fa-clipboard-list input-icon"></i>
+                                    <input 
+                                        type="text" 
+                                        value={otherPurpose} 
+                                        onChange={(e) => setOtherPurpose(e.target.value)} 
+                                        placeholder="Purpose of expense"
+                                    />
+                                </div>
+                            </div>
+                            
+                            <div className="form-group">
+                                <label>Amount</label>
+                                <div className="distance-input">
+                                    <div className="input-with-icon">
+                                        <i className="fas fa-rupee-sign input-icon"></i>
+                                        <input 
+                                            type="number" 
+                                            value={otherAmount} 
+                                            onChange={(e) => setOtherAmount(e.target.value)} 
+                                            placeholder="0"
+                                        />
+                                    </div>
+                                    <span className="unit">Rs</span>
                                 </div>
                             </div>
                         </div>

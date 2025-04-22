@@ -2,7 +2,7 @@ import { useState, useRef } from "react";
 import "./Signin.css"; // Add this CSS file
 
 function Signin({ handleLogin }) {
-  const [email, setEmail] = useState("");
+  const [emailOrEmpid, setEmailOrEmpid] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const otpRefs = useRef([]);
@@ -12,7 +12,7 @@ function Signin({ handleLogin }) {
     setIsLoading(true);
 
     try {
-      await handleLogin({ email, password });
+      await handleLogin({ emailOrEmpid, password });
     } finally {
       setIsLoading(false);
     }
@@ -27,18 +27,18 @@ function Signin({ handleLogin }) {
     }
   };
 
-  const isFormValid = email.trim() !== "" && password.trim() !== "";
+  const isFormValid = emailOrEmpid.trim() !== "" && password.trim() !== "";
 
   return (
     <div className="Form">
       <form className="Form-1" onSubmit={submitHandler}>
         <input
-          type="email"
+          type="number"
           className="form-control custom-input mb-3"
-          placeholder="Email Address"
+          placeholder="Emp ID"
           required
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          value={emailOrEmpid}
+          onChange={(e) => setEmailOrEmpid(e.target.value)}
         />
         <input
           type="password"

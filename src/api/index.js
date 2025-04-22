@@ -34,3 +34,21 @@ export const updateUserData = async(userData) => {
     const data = await response.json();
     return data;
 }
+
+export const changePassword = async ({ oldPassword, newPassword }) => {
+    const response = await fetch(`${baseurl}/api/user/change-password`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({ oldPassword, newPassword }),
+    });
+
+    const data = await response.json();
+    if (!response.ok) {
+        throw new Error(data.error || "Password update failed");
+    }
+
+    return data;
+};

@@ -62,6 +62,21 @@ function Main() {
             });
         }
 
+        if (!expense.distance && expense.otherPurpose) {
+            url = `${baseurl}/api/expense/otherexpense/${expense._id}`;
+            method = "PUT";
+            body = JSON.stringify({
+                clientName: expense.clientName,
+                leadId: expense.leadId,
+                purpose: expense.purpose,
+                from: expense.from,
+                to: expense.to,
+                date: expense.date,
+                otherPurpose: expense.otherPurpose,
+                otherAmount: 0
+            });
+        }
+
         try {
             const response = await fetch(url, {
                 method,

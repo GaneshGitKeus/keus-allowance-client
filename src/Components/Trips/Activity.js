@@ -22,27 +22,56 @@ function Activity({ user, expenseDate, activity, handleEditExpense, handleDelete
             </div>
 
             <div className="Expenses-Container">
-                {activity.map((expense, index) => (
-                    <Expenses
-                    key={index}
-                    icon={expense.distance ? "bi bi-bicycle" : "bi bi-cup-straw"}
-                    from={expense.distance ? expense.from : expense.restaurant}
-                    to={expense.distance ? expense.to : ""}
-                    event={expense.distance ? "Trip" : "Food"}
-                    kmorperson={expense.distance ? `${expense.distance} km` : `${expense.persons} Person`}
-                    amount={expense.distance ? expense.distance * 4 : expense.amount}
-                    clientName={expense.clientName}
-                    leadId={expense.leadId}
-                    issue={expense.purpose}
-                    handleEditExpense={handleEditExpense}
-                    handleDeleteExpense={handleDeleteExpense}
-                    expense={expense}
-                    user={user}
-                />
-                
-                ))}
+                {activity.map((expense, index) => {
+                    // Determine the expense type and related properties
+                    let icon, from, to, event, kmorperson, amount;
+                    
+                    if (expense.otherPurpose || expense.otherAmount) {
+                        // Other Expenses case
+                        icon = "bi bi-box";
+                        from = expense.otherPurpose;
+                        to = "";
+                        event = "Others";
+                        kmorperson = "";
+                        amount = expense.otherAmount;
+                    } else if (expense.distance) {
+                        // Trip case
+                        icon = "bi bi-bicycle";
+                        from = expense.from;
+                        to = expense.to;
+                        event = "Trip";
+                        kmorperson = `${expense.distance} km`;
+                        amount = expense.distance * 4;
+                    } else {
+                        // Food case
+                        icon = "bi bi-cup-straw";
+                        from = expense.restaurant;
+                        to = "";
+                        event = "Food";
+                        kmorperson = `${expense.persons} Person`;
+                        amount = expense.amount;
+                    }
+                    
+                    return (
+                        <Expenses
+                            key={index}
+                            icon={icon}
+                            from={from}
+                            to={to}
+                            event={event}
+                            kmorperson={kmorperson}
+                            amount={amount}
+                            clientName={expense.clientName}
+                            leadId={expense.leadId}
+                            issue={expense.purpose}
+                            handleEditExpense={handleEditExpense}
+                            handleDeleteExpense={handleDeleteExpense}
+                            expense={expense}
+                            user={user}
+                        />
+                    );
+                })}
             </div>
-
         </>
     )
 }
