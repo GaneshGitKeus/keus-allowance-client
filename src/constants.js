@@ -1,2 +1,2 @@
-// export const baseurl = 'https://keus-allowance-api.azurewebsites.net';
-export const baseurl = 'http://localhost:5000';
+export const baseurl = 'https://keus-allowance-app.onrender.com';
+// export const baseurl = 'http://localhost:5000';
