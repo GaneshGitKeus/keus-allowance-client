@@ -1,0 +1,41 @@
+.Keusname
+{
+    width:1rempx;
+    height:1rem;
+    padding-top:1rem;
+    padding-left:1rem;
+    
+}
+
+.Introduction-text
+{
+    border: 0rem;
+    background-color: #ECECEC;
+    font-size:1.7rem;
+    padding-left: 1rem;
+    color: rgb(100, 100, 100);
+}
+
+.Intro-Name
+{   
+    
+    border: 0rem;
+    background-color: #ECECEC;
+    font-size:1.7rem;
+    padding-left: 1rem;
+    color: rgb(75, 75, 75);
+    /* transform: translate(26%,-98%); */
+
+}
+
+.Hello-Image
+{
+    display: flex;
+    width:2rem;
+    height:2rem;
+    padding-left:8rem;
+    padding-bottom: 20rem;
+    
+    
+
+}

@@ -1,0 +1,178 @@
+.Home {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    /* height: 100vh; */
+    /* width: 100vw; */
+}
+
+.success-message {
+    font-size: 1.3rem;
+    color: green;
+}
+
+.error-message {
+    font-size: 1.3rem;
+    color: red;
+}
+
+
+.Login-form-text
+{
+    display: flex;
+    justify-content:center;
+    padding-top: 2.5rem;
+    font-size:2rem;
+    font-style: Bold;
+    font-family: poppins;
+
+}
+.Login-Button {
+    display: flex;
+    justify-content: center;
+    gap: 1rem; /* Space between buttons */
+    margin-top: 1rem;
+}
+
+.Login-Buttton-size, 
+.Signup-Buttton-size {
+    padding: 1rem 2rem; /* Adjust padding for proper size */
+    font-size: 1.5rem; 
+    border-radius: 25px;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+    min-width: 10rem;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Ensure selected button has proper background and color */
+.Login-Buttton-size.active,
+.Signup-Buttton-size.active {
+    background-color: rgb(18, 18, 149);
+    color: white;
+}
+
+.Login-Buttton-size:not(.active),
+.Signup-Buttton-size:not(.active) {
+    background-color: white;
+    color: black;
+    border: 1px solid rgb(18, 18, 149);
+}
+
+.Form input
+{
+  width:17rem;
+  padding: 1rem;
+  margin: 0.8rem;
+  border-radius:1.1rem;
+  height:1.8rem;
+  
+}
+
+.Form 
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem;
+}
+
+
+
+.Form .Button
+{
+    text-align: center;
+    font-size: 1.8rem;
+    background-color: rgb(18, 18, 149);
+    color: aliceblue;
+    
+}
+
+.Form-1 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom:5rem;
+}
+
+a
+{
+    margin-left:1rem;
+}
+
+
+.Form-Signup form
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+}
+
+.Form-Signup input
+{
+    width:17rem;
+    padding:1rem;
+    margin: 0.8rem;
+    border-radius:1.1rem;
+    height:1.8rem;
+}
+
+
+
+.Signup-Buttton{
+    padding: 1rem 2rem; /* Adjust padding for proper size */
+    font-size: 1.5rem; 
+    border-radius: 25px;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+    min-width: 10rem;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    background-color: rgb(18, 18, 149);
+}
+
+
+
+
+.otp-container input {
+    width: 1.2rem;
+    height: 10px;
+    text-align: center;
+    font-size: 20px;
+    border: 2px solid #ccc;
+    border-radius: 1rem;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.otp-input:focus {
+    border-color: #007bff;
+}
+
+
+h2
+{
+font-family:poppins;
+font-size:0.9rem; 
+margin-left:1rem;
+}
+
+
+.Signin-Buttton
+{
+    margin-top:2rem;
+}
