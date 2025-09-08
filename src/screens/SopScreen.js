@@ -1,6 +1,7 @@
 import React,{useEffect, useState} from "react";
 import SopList from "../Components/Sopvideos/SopList"; // ✅ check correct path
 import { baseurl } from "../constants";
+import {ClipLoader} from "react-spinners"
 
 const sopData = [
   {
@@ -26,10 +27,12 @@ const sopData = [
 export default function SopScreen() {
 
       const [sops,setSops] = useState([]);
+      const [loader,setLoader] = useState(false);
 
       useEffect(() => {
           async function fetchData() {
             try {
+              setLoader(true);
               const res = await fetch(`${baseurl}/api/sop`);
               const data = await res.json();
               setSops(data);
@@ -37,13 +40,18 @@ export default function SopScreen() {
             } catch (err) {
               console.error("Failed to fetch SOPs:", err);
             }
+            finally{
+              setLoader(false);
+            }
           }
           fetchData();
         }, []);
   return (
     <div className="">
-      <h1 className="text-xl font-bold mb-4 Heading">SOP Documents & Videos</h1>
-      <SopList data={sops} />
+      <h1 className="text-xl font-bold mb-4 Heading d-flex justify-content-center align-items-center">SOP Documents & Videos</h1>
+      <div className={`${loader ? "d-flex flex-column h-100 align-items-center justify-contrent-center" : ""}`}>
+          {loader ? <ClipLoader loading={loader} size={50} /> :<SopList data={sops} />}
+      </div>
     </div>
   );
 }

@@ -118,6 +118,15 @@ function Main() {
     };
 
 
+    const gotoHomePage = async () => {
+        const updatedUserData = await userData(true);
+        setUser(updatedUserData);
+        setExpenses(updatedUserData.expenses);
+        console.log("Refreshed User Data:", expenses);
+        setPage(0);
+    }
+
+
 
     return (
         <div>
@@ -135,7 +144,7 @@ function Main() {
             {page === 3 && <SopScreen />}
 
             <div className="Bottom-Buttons">
-                <div className="Expenses-main" onClick={() => setPage(0)}>
+                <div className="Expenses-main" onClick={gotoHomePage}>
                     <i className="bi bi-house"></i>
                     <span>Home</span>
                 </div>
